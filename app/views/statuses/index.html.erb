@@ -1,1 +1,7 @@
-<p>Hello World</p>
+<ol>
+  <% @statuses.each do |status| %>
+    <li><%= status.text %><br />
+      <%= time_ago_in_words(status.created_at) %>
+    </li>
+  <% end %>
+</ol>
