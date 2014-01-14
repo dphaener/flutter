@@ -1,3 +1,7 @@
 class User < ActiveRecord::Base
-  validates :email, :presence => true, :uniqueness => true
+  EMAIL_REGEX = /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/
+
+  validates :email, :format => EMAIL_REGEX, :uniqueness => true
+  validates :screen_name, :uniqueness => true, :length => 1..15, :format => /\A[^@]+\z/
+  validates :full_name, :length => { :minimum => 2 }
 end
