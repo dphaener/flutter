@@ -60,4 +60,10 @@ class UserTest < ActiveSupport::TestCase
     user = Fabricate.build(:user, :full_name => "a")
     assert !user.valid?
   end
+
+  should "have a password" do
+    user = Fabricate.build(:user)
+    user.password = "foo"
+    assert_equal "foo", user.password
+  end
 end
