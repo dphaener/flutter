@@ -81,4 +81,10 @@ class UserTest < ActiveSupport::TestCase
     user = Fabricate.build(:user, :password => "12345678")
     assert user.invalid?
   end
+
+  should "not validate password if the password is blank" do
+    user = Fabricate(:user)
+    user.password = nil
+    assert user.valid?
+  end
 end
