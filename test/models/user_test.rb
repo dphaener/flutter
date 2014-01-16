@@ -87,4 +87,34 @@ class UserTest < ActiveSupport::TestCase
     user.password = nil
     assert user.valid?
   end
+
+  context "before save" do
+    context "if password is set" do
+      setup do
+        @user = Fabricate.build(:user, :password => "password123")
+        @user.save
+      end
+
+      should "generate a salt and hash" do
+        assert @user.password_salt.present?
+        assert @user.password_hash.present?
+      end
+    end
+
+    context "if password is not set" do
+      setup do
+        @user = Fabricate(:user)
+        @hash = @user.password_hash
+        @salt = @user.password_salt
+
+        @user.password = nil
+        @user.save
+      end
+
+      should "not change the salt and hash" do
+        assert_equal @hash, @user.password_hash
+        assert_equal @salt, @user.password_salt
+      end
+    end
+  end
 end
