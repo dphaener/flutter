@@ -66,4 +66,19 @@ class UserTest < ActiveSupport::TestCase
     user.password = "foo"
     assert_equal "foo", user.password
   end
+
+  should "require password to be at least 8 characters" do
+    user = Fabricate.build(:user, :password => "aaaaaa1")
+    assert user.invalid?
+  end
+
+  should "require password to have at least 1 number" do
+    user = Fabricate.build(:user, :password => "b" * 8)
+    assert user.invalid?
+  end
+
+  should "not allow password to be '12345678'" do
+    user = Fabricate.build(:user, :password => "12345678")
+    assert user.invalid?
+  end
 end

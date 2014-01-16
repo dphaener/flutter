@@ -13,4 +13,5 @@ Fabricator(:user) do
 
   full_name "Derrick Reimer"
   url "http://example.com"
+  password "password1"
 end

@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   validates :email, :format => EMAIL_REGEX, :uniqueness => true
   validates :screen_name, :uniqueness => true, :length => 1..15, :format => /\A[^@]+\z/
   validates :full_name, :length => { :minimum => 2 }
+  validates :password, :length => { :minimum => 8 }, 
+    :format => /\d/, :exclusion => ["12345678"]
 
   attr_accessor :password
 
