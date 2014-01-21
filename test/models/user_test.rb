@@ -117,4 +117,22 @@ class UserTest < ActiveSupport::TestCase
       end
     end
   end
+
+  context ".authenticate" do
+    setup do
+      @user = Fabricate(:user)
+    end
+
+    should "return false if user does not exist" do
+      assert_equal false, User.authenticate("me@example.com", "foo")
+    end
+
+    should "return false if user exists and password is wrong" do
+      assert_equal false, User.authenticate(@user.email, "wrongpassword")
+    end
+
+    should "return the user if user exists and password is correct" do
+      assert_equal @user, User.authenticate(@user.email, @user.password)
+    end
+  end
 end

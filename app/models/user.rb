@@ -14,6 +14,13 @@ class User < ActiveRecord::Base
 
   before_save :encrypt_password
 
+  def self.authenticate(email, password)
+    return false unless user = self.find_by(:email => email)
+    hashed_password = BCrypt::Engine.hash_secret(password, user.password_salt)
+    return false unless hashed_password == user.password_hash
+    user
+  end
+
 private
 
   def password_validatible?
