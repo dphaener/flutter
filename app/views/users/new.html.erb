@@ -1,0 +1,29 @@
+<h1>Sign Up</h1>
+
+<% if @user.errors.any? %>
+  <p>Registration failed for the following reasons:</p>
+  <ul>
+    <% @user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_for(@user) do |f| %>
+  <%= f.label :screen_name, "Screen Name" %>
+  <%= f.text_field :screen_name %>
+  <br>
+  <%= f.label :full_name, "Full Name" %>
+  <%= f.text_field :full_name %>
+  <br>
+  <%= f.label :url, "URL" %>
+  <%= f.url_field :url %>
+  <br>
+  <%= f.label :email %>
+  <%= f.email_field :email %>
+  <br>
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+  <br>
+  <%= f.submit %>
+<% end %>
