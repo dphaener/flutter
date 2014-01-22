@@ -7,11 +7,32 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<% if flash[:notice] %>
-  <div class="notice"><%= flash[:notice] %></div>
-<% end %>
+  <nav class="main-navigation">
+    <div class="container">
+      <ul>
+        <li><%= link_to "Flutter", "/", :class => "logo" %></li>
+      </ul>
+    </div>
+  </nav>
 
-<%= yield %>
+  <div class="container">
+    <div class="content-wrapper">
+      <% if flash[:notice] %>
+        <div class="flash notice"><%= flash[:notice] %></div>
+      <% end %>
 
+      <% if flash[:alert] %>
+        <div class="flash alert"><%= flash[:alert] %></div>
+      <% end %>
+
+      <div class="main-content">
+        <%= yield %>
+      </div>
+
+      <aside class="sidebar">
+        <%= yield(:sidebar) %>
+      </aside>
+    </div>
+  </div>
 </body>
 </html>

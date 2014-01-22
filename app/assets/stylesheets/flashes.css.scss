@@ -1,0 +1,15 @@
+.flash {
+  @include border-radius(3px);
+  margin-bottom: 15px;
+  padding: 12px 15px;
+
+  &.notice {
+    background-color: #dff0db;
+    color: #468847;
+  }
+
+  &.alert {
+    background-color: #f2dede;
+    color: #b94a48;
+  }
+}

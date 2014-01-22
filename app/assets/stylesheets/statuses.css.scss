@@ -1,0 +1,44 @@
+ol.statuses {
+  list-style-type: none;
+
+  li {
+    @include clearfix;
+    padding: 12px;
+    border-bottom: 1px solid #dedede;
+  }
+
+  .avatar {
+    @include border-radius(4px);
+    width: 48px;
+    height: 48px;
+    float: left;
+  }
+
+  .status {
+    margin-left: 60px;
+
+    .user {
+
+      &:hover {
+        text-decoration: none;
+      }
+
+      .full-name {
+        font-weight: bold;
+        color: #333;
+      }
+
+      .screen-name {
+        margin-left: 5px;
+        color: #aaa;
+        font-size: 13px;
+      }
+    }
+
+    time {
+      float: right;
+      color: #aaa;
+      font-size: 13px;
+    }
+  }
+}

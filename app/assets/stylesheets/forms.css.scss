@@ -1,0 +1,88 @@
+form {
+
+  .field {
+    padding: 0 0 15px 0;
+    width: 66%;
+
+    &.full {
+      width: 100%;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: bold;
+      padding-bottom: 3px;
+    }
+  }
+
+  .field_with_errors {
+
+    label {
+      color: red;
+      font-weight: bold;
+    }
+
+    input[type=text],
+    input[type=email],
+    input[type=password],
+    input[type=url] {
+      border-color: red;
+    }
+  }
+
+  input, textarea {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+  }
+
+  input[type=text],
+  input[type=email],
+  input[type=password],
+  input[type=url],
+  textarea {
+    @include border-radius(4px);
+    padding: 10px;
+    border: 1px solid #cecece;
+    width: 100%;
+  }
+
+  textarea {
+    height: 80px;
+  }
+}
+
+.button {
+  @include border-radius(5px);
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #dc8b14;
+  border: 0;
+  border-bottom: 3px solid #b56d02;
+  outline: 0;
+
+  &:active {
+    border-top: 1px solid transparent;
+    border-bottom: 2px solid #b56d02;
+  }
+}
+
+.validation-errors {
+  @include border-radius(3px);
+  margin-bottom: 20px;
+  padding: 12px 15px;
+  background-color: #fffae0;
+  border: 2px solid #ddd55e;
+  color: red;
+
+  p {
+    padding: 0 0 10px 0;
+  }
+
+  ul {
+    margin-left: 10px;
+    list-style-position: inside;
+  }
+}
