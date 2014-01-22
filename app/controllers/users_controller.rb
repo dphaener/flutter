@@ -19,11 +19,3 @@ private
     params.require(:user).permit(:screen_name, :full_name, :url, :email, :password)
   end
 end
-
-
-
-
-
-
-
-
