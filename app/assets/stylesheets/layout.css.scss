@@ -49,14 +49,25 @@ a {
 }
 
 .main-navigation {
+  @include clearfix;
   background-color: #333;
 
   ul {
+    @include clearfix;
     list-style-type: none;
 
+    &.left {
+      float: left;
+    }
+
+    &.right {
+      float: right;
+    }
+
     li {
-      padding: 0 10px;
+      padding: 0 15px;
       line-height: 42px;
+      float: left;
 
       a {
         color: #fff;
