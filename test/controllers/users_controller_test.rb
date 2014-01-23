@@ -16,13 +16,14 @@ class UsersControllerTest < ActionController::TestCase
         @user_params = Fabricate.attributes_for(:user)
       end
 
-      should "create a new user and redirect with a flash" do
+      should "create a new user, login, and redirect with a flash" do
         assert_difference("User.count") do
           post :create, :user => @user_params
         end
 
         assert_redirected_to(statuses_url)
         assert_not_nil(flash[:notice])
+        assert_logged_in_as(User.last)
       end
     end
 
