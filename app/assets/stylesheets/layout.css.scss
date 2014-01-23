@@ -51,6 +51,7 @@ a {
 .main-navigation {
   @include clearfix;
   background-color: #333;
+  color: #fff;
 
   ul {
     @include clearfix;
