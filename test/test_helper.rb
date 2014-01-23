@@ -12,4 +12,11 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  def login_as(user)
+    session[:user_id] = user.id  
+  end
+
+  def assert_logged_in_as(user)
+    assert_equal user.id, session[:user_id]    
+  end
 end

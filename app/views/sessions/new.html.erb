@@ -1,0 +1,18 @@
+<div class="content-box">
+  <h2>Login</h2>
+  <div class="inner">
+    <%= form_tag(sessions_path) do %>
+      <div class="field">
+        <%= label_tag :email, "Email" %>
+        <%= email_field_tag :email %>
+      </div>
+
+      <div class="field">
+        <%= label_tag :password, "Password" %>
+        <%= password_field_tag :password %>
+      </div>
+
+      <%= submit_tag "Login", :class => "button" %>
+    <% end %>
+  </div>
+</div>
