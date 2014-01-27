@@ -1,0 +1,81 @@
+.profile-header {
+  @include clearfix;
+
+  .user-info {
+    @include border-radius(3px 3px 0 0);
+    background-color: #333;
+    padding: 25px;
+
+    .avatar {
+      @include border-radius(3px);
+      display: block;
+      margin: 0 auto 10px;
+      width: 73px;
+      height: 73px;
+      border: 3px solid #fff;
+    }
+
+    h1.full-name {
+      margin: 0;
+      padding: 0;
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+      text-align: center;
+
+      a {
+        color: #fff;
+      }
+    }
+
+    h2.screen-name {
+      padding: 0;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 24px;
+      color: #fff;
+      border: 0;
+      text-align: center;
+
+      a {
+        color: #fff;
+      }
+    }
+  }
+
+  .stats {
+    @include clearfix;
+    float: left;
+    list-style-type: none;
+
+    li {
+      display: block;
+      float: left;
+      border-right: 1px solid #dedede;
+
+      &:last-child {
+        border: 0;
+      }
+
+      a {
+        display: block;
+        padding: 8px 12px;
+        font-size: 11px;
+        color: #aaa;
+        text-transform: uppercase;
+
+        strong {
+          font-size: 14px;
+          color: #333;
+          font-weight: bold;
+          display: block;
+        }
+      }
+    }
+  }
+
+  .follow-button {
+    margin: 5px 5px 0 0;
+    float: right;
+  }
+}
