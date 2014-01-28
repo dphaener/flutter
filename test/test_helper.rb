@@ -19,4 +19,8 @@ class ActiveSupport::TestCase
   def assert_logged_in_as(user)
     assert_equal user.id, session[:user_id]    
   end
+
+  def assert_logged_out
+    assert_nil session[:user_id]
+  end
 end
