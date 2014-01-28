@@ -21,4 +21,8 @@ class ApplicationController < ActionController::Base
   def logout
     session.delete(:user_id)
   end
+
+  def authenticate_user!
+    redirect_to new_session_url unless logged_in?
+  end
 end

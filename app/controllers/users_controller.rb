@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!, only: [:edit, :update]
+
   def new
     @user = User.new
   end
@@ -15,7 +17,16 @@ class UsersController < ApplicationController
   end
 
   def edit
-    redirect_to new_session_path if !logged_in? 
+    @user = current_user
+  end
+
+  def update
+    @user = current_user
+    if @user.update_attributes(user_params)
+      redirect_to edit_user_url, notice: "Attributes updated succesfully"
+    else
+      render "edit"
+    end
   end
 
 private

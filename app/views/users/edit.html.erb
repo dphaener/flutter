@@ -1,1 +1,8 @@
-<h1> HAH! </h1>
+<div class="content-box">
+  <h2>Edit Settings</h2>
+
+  <div class="inner">
+    <%= render "shared/errors", record: @user %>
+    <%= render "form", user: @user, button_text: "Save Settings" %>
+  </div>
+</div>
