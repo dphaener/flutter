@@ -13,7 +13,7 @@
       </div>
     <% end %>
 
-    <%= form_for(@user) do |f| %>
+    <%= form_for(@user, url: user_path) do |f| %>
       <div class="field">
         <%= f.label :screen_name, "Screen Name" %>
         <%= f.text_field :screen_name %>

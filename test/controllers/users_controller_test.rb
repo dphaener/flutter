@@ -35,4 +35,25 @@ class UsersControllerTest < ActionController::TestCase
       should render_template("new")
     end
   end
+
+  context "GET #edit" do
+    context "if user is logged in" do
+      setup do
+        @user = Fabricate(:user)
+        login_as(@user)
+        get :edit
+      end
+
+     should_render_template "edit"
+    end
+
+    context "if user is not logged in" do
+      setup do
+        get :edit
+      end
+      should "redirect to login page" do 
+        assert_redirected_to new_session_url
+      end
+    end
+  end
 end

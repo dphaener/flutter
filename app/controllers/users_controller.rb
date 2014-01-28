@@ -14,6 +14,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    redirect_to new_session_path if !logged_in? 
+  end
+
 private
 
   def user_params
