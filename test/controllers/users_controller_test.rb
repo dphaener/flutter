@@ -1,6 +1,28 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
+  context "GET #show" do
+    context "if user exists" do
+      setup do
+        @user = Fabricate(:user)
+        get :show, screen_name: @user.screen_name
+      end
+
+      should render_template("show")
+      should "assign to user" do
+        assert_equal @user, assigns(:user)
+      end
+    end
+
+    context "if user doesn't exist" do
+      should "raise a routing error" do
+        assert_raises(ActionController::RoutingError) do
+          get :show, screen_name: "blah"
+        end
+      end
+    end
+  end
+
   context "GET #new" do
     setup do
       get :new

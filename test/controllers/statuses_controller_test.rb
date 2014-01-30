@@ -64,8 +64,7 @@ class StatusesControllerTest < ActionController::TestCase
             post :create, status: @status
           end
           assert_redirected_to statuses_url
-          @status = Status.last
-          assert_equal @user.id, @status.user.id
+          assert @user.statuses.any?
           assert_not_nil flash[:notice]
         end
       end

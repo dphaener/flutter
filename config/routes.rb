@@ -1,7 +1,10 @@
 Flutter::Application.routes.draw do
   resources :statuses
-  resource :user
+  resource :user, except: [:show]
   resource :session, :only => [:new, :create, :destroy]
+
+  get ":screen_name" => 'users#show', as: :profile
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :update]
 
+  def show
+    @user = User.find_by(screen_name: params[:screen_name]) || not_found!
+  end
+
   def new
     @user = User.new
   end
@@ -33,5 +37,9 @@ private
 
   def user_params
     params.require(:user).permit(:screen_name, :full_name, :url, :email, :password)
+  end
+
+  def not_found!
+    raise ActionController::RoutingError.new("Not Found")
   end
 end

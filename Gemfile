@@ -39,6 +39,8 @@ group :test do
   gem 'fabrication'
 end
 
+gem 'gravatar_image_tag'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
