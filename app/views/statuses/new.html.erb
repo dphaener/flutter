@@ -2,10 +2,11 @@
   <h2>New Status</h2>
 
   <div class="inner">
+    <%= render "shared/errors", record: @status %>
     <%= form_for @status do |f| %>
       <div class="field">
-        <%= f.label :text %>
-        <%= f.text_field :text %>
+        <%= f.label :text, "New Status" %>
+        <%= f.text_area :text %>
       </div>
       
       <%= f.submit "Submit", :class => "button" %>

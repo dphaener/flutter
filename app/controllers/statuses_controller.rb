@@ -1,6 +1,6 @@
 class StatusesController < ApplicationController
   
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, except: [:index]
 
   def index
     @statuses = Status.all.order("created_at DESC")
@@ -11,8 +11,9 @@ class StatusesController < ApplicationController
   end
 
   def create
-    if current_user.statuses.create(status_params)
-      redirect_to statuses_url
+    @status = current_user.statuses.new(status_params)
+    if @status.save
+      redirect_to statuses_url, notice: "Status updated"
     else
       render "new"
     end

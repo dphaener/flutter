@@ -36,8 +36,8 @@
         <img src="" class="avatar" />
         <div class="status">
           <a href="#" class="user">
-            <span class="full-name">Full Name</span>
-            <span class="screen-name">@screen_name</span>
+            <span class="full-name"><%= status.user.full_name %></span>
+            <span class="screen-name">@<%= status.user.screen_name %></span>
           </a>
           <time><%= time_ago_in_words(status.created_at) %> ago</time>
           <p class="status-text"><%= status.text %></p>

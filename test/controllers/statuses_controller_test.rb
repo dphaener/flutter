@@ -52,17 +52,37 @@ class StatusesControllerTest < ActionController::TestCase
     end
 
     context "if user is logged in" do
-      setup do
-        @user = Fabricate(:user)
-        login_as(@user)
-        @status = Fabricate.attributes_for(:status)
+      context "with valid input" do
+        setup do
+          @user = Fabricate(:user)
+          login_as(@user)
+          @status = Fabricate.attributes_for(:status)
+        end
+
+        should "create a new status and associate it with the user" do
+          assert_difference("Status.count") do
+            post :create, status: @status
+          end
+          assert_redirected_to statuses_url
+          @status = Status.last
+          assert_equal @user.id, @status.user.id
+          assert_not_nil flash[:notice]
+        end
       end
 
-      should "create a new status" do
-        assert_difference("Status.count") do
-          post :create, status: @status
+      context "with invalid input" do
+        setup do
+          @user = Fabricate(:user)
+          login_as(@user)
+          @status = Fabricate.attributes_for(:status, text: "a"*141)
         end
-        assert_redirected_to statuses_url
+
+        should "re-render the form with error messages" do
+          assert_no_difference("Status.count") do
+            post :create, status: @status
+          end
+          assert_template "new"
+        end
       end
     end
     
