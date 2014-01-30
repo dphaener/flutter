@@ -19,7 +19,7 @@
 
       <ul class="right">
         <% if logged_in? %>
-          <li>Welcome, <%= current_user.full_name %></li>
+          <li>Welcome, <%= link_to current_user.full_name, profile_path(current_user.screen_name) %></li>
           <li><%= link_to "Settings", edit_user_path %></li>
           <li><%= link_to "Logout", session_path, method: :delete %></li>
         <% else %>
