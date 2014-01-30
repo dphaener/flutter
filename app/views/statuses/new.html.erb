@@ -1,0 +1,15 @@
+<div class="content-box">
+  <h2>New Status</h2>
+
+  <div class="inner">
+    <%= form_for @status do |f| %>
+      <div class="field">
+        <%= f.label :text %>
+        <%= f.text_field :text %>
+      </div>
+      
+      <%= f.submit "Submit", :class => "button" %>
+    <% end %>
+  </div>
+</div>
+
