@@ -150,6 +150,12 @@ class UserTest < ActiveSupport::TestCase
     should "add the user to the given user's follower users" do
       assert_equal [@user1], @user2.follower_users.to_a
     end
+
+    should "not create a duplicate relationships" do
+      assert_no_difference("Relationship.count") do
+        @user1.follow(@user2)
+      end
+    end
   end
 
   context "#following?" do
