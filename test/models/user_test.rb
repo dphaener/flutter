@@ -135,4 +135,43 @@ class UserTest < ActiveSupport::TestCase
       assert_equal @user, User.authenticate(@user.email, @user.password)
     end
   end
+
+  context "#follow" do
+    setup do
+      @user1 = Fabricate(:user)
+      @user2 = Fabricate(:user)
+      @user1.follow(@user2)
+    end
+
+    should "add a given user to followed users" do
+      assert_equal [@user2], @user1.followed_users.to_a
+    end
+
+    should "add the user to the given user's follower users" do
+      assert_equal [@user1], @user2.follower_users.to_a
+    end
+  end
+
+  context "#following?" do
+    setup do
+      @user1 = Fabricate(:user)
+      @user2 = Fabricate(:user)
+    end
+
+    context "user1 is following user2" do
+      setup do
+        @user1.follow(@user2)
+      end
+
+      should "return true" do
+        assert @user1.following?(@user2)
+      end
+    end
+
+    context "user1 is not following user2" do
+      should "return false" do
+        assert !@user1.following?(@user2)
+      end
+    end
+  end
 end

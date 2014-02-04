@@ -2,6 +2,10 @@ require 'bcrypt'
 
 class User < ActiveRecord::Base
   has_many :statuses
+  has_many :follower_relationships, class_name: "Relationship", :foreign_key => "follower_id"
+  has_many :followed_relationships, class_name: "Relationship", :foreign_key => "followed_id"
+  has_many :followed_users, through: :follower_relationships
+  has_many :follower_users, through: :followed_relationships
   
   EMAIL_REGEX = /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/
 
@@ -22,6 +26,14 @@ class User < ActiveRecord::Base
     hashed_password = BCrypt::Engine.hash_secret(password, user.password_salt)
     return false unless hashed_password == user.password_hash
     user
+  end
+
+  def follow(user)
+    follower_relationships.create(followed_id: user.id)
+  end
+
+  def following?(user)
+    follower_relationships.find_by(followed_id: user.id).present?
   end
 
 private
