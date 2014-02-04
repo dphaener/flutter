@@ -3,7 +3,7 @@ class StatusesController < ApplicationController
   before_action :authenticate_user!, except: [:index]
 
   def index
-    @statuses = Status.all.order("created_at DESC")
+    @statuses = Status.all
   end
 
   def new

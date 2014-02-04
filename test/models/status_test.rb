@@ -12,4 +12,10 @@ class StatusTest < ActiveSupport::TestCase
     status.text = "a"
     assert !status.valid?
   end
+
+  should "load statuses in reverse chronological order" do
+    status1 = Fabricate(:status, created_at: 1.day.ago)
+    status2 = Fabricate(:status)
+    assert_equal [status2, status1], Status.all.to_a
+  end
 end
