@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140204032641) do
+ActiveRecord::Schema.define(version: 20140206040035) do
 
   create_table "relationships", force: true do |t|
     t.integer  "follower_id"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20140204032641) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.integer  "reply_to"
   end
 
   add_index "statuses", ["user_id"], name: "index_statuses_on_user_id"

@@ -180,4 +180,29 @@ class UserTest < ActiveSupport::TestCase
       end
     end
   end
+
+  context "#follower_ratio" do
+    context "if the user is not following anyone" do
+      setup do
+        @user = User.new
+        @user.expects(:followed_user_count).at_least_once.returns(0)
+      end
+
+      should "return nil" do
+        assert_nil @user.follower_ratio
+      end
+    end 
+
+    context "if the user is following at least one other user" do
+      setup do
+        @user = User.new
+        @user.expects(:follower_user_count).at_least_once.returns(1)
+        @user.expects(:followed_user_count).at_least_once.returns(2)
+      end
+
+      should "return the ratio of follower users to followed users" do
+        assert_equal 0.5, @user.follower_ratio
+      end
+    end 
+  end
 end

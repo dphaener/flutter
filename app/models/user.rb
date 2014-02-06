@@ -36,8 +36,21 @@ class User < ActiveRecord::Base
     follower_relationships.find_by(followed_id: user.id).present?
   end
 
+  def follower_user_count
+    @follower_user_count ||= follower_users.count
+  end
+
+  def followed_user_count
+    @followed_user_count ||= followed_users.count
+  end
+
   def to_param
     screen_name  
+  end
+
+  def follower_ratio
+    return nil if followed_user_count == 0
+    follower_user_count.to_f / followed_user_count
   end
 
 private

@@ -18,4 +18,32 @@ class StatusTest < ActiveSupport::TestCase
     status2 = Fabricate(:status)
     assert_equal [status2, status1], Status.all.to_a
   end
+
+  context "#reply_user" do
+    setup do
+      @user = Fabricate(:user)
+      @replying_user = Fabricate(:user)
+      @status = Fabricate(:status, user_id: @user.id)
+    end
+
+    context "status is a reply" do
+      setup do
+        @reply_status = Fabricate(:status, text: "@#{@user.screen_name} nice one", user_id: @replying_user)
+      end
+
+      should "return a user" do
+        assert_equal @user, @reply_status.reply_user
+      end
+
+      should "add the reply_to user_id to the record" do
+        assert_equal @user.id, @reply_status.reply_to
+      end
+    end
+
+    context "status is not a reply" do
+      should "return nil" do
+        assert_equal nil, @status.reply_user
+      end
+    end
+  end
 end

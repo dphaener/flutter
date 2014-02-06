@@ -23,6 +23,15 @@
         <strong><%= @user.follower_users.count %></strong> Followers
       </a>
     </li>
+    <li>
+      <a href="#">
+        <% if @user.follower_ratio != nil %>
+          <strong><%= @user.follower_ratio %></strong> Follower Ratio
+        <% else %>
+          <strong>No Follower Ratio</strong>
+        <% end %>
+      </a>
+    </li>
   </ul>
 
   <% if !logged_in? %>
