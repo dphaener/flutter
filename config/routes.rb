@@ -4,6 +4,8 @@ Flutter::Application.routes.draw do
   resource :session, :only => [:new, :create, :destroy]
 
   get ":screen_name" => 'users#show', as: :profile
+
+  post ":screen_name/relationships" => "relationships#create", as: "follow"
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
