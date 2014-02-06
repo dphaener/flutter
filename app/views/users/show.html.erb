@@ -14,18 +14,26 @@
 
     <li>
       <a href="#">
-        <strong>50</strong> Following
+        <strong><%= @user.followed_users.count %></strong> Following
       </a>
     </li>
 
     <li>
       <a href="#">
-        <strong>300</strong> Followers
+        <strong><%= @user.follower_users.count %></strong> Followers
       </a>
     </li>
   </ul>
 
-  <a href="#" class="follow-button button">Follow</a>
+  <% if !logged_in? %>
+    <%= link_to "Sign in to follow", new_session_path, class: "follow-button button" %>
+  <% elsif current_user != @user %>
+    <% if current_user.following?(@user) %>
+      <a href="#" class="follow-button button">Unfollow</a>
+    <% else %>
+      <%= link_to "Follow", follow_url(screen_name: @user.screen_name), method: :post, class: "follow-button button" %>
+    <% end %>
+  <% end %>
 </div>
 
 <%= render "statuses/list", statuses: @user.statuses %>

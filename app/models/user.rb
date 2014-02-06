@@ -36,6 +36,10 @@ class User < ActiveRecord::Base
     follower_relationships.find_by(followed_id: user.id).present?
   end
 
+  def to_param
+    screen_name  
+  end
+
 private
 
   def password_validatible?

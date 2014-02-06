@@ -38,8 +38,4 @@ private
   def user_params
     params.require(:user).permit(:screen_name, :full_name, :url, :email, :password)
   end
-
-  def not_found!
-    raise ActionController::RoutingError.new("Not Found")
-  end
 end
