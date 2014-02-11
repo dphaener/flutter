@@ -19,30 +19,94 @@ class StatusTest < ActiveSupport::TestCase
     assert_equal [status2, status1], Status.all.to_a
   end
 
+  context "#check_for_reply" do
+    setup do
+      @user = Fabricate(:user)
+    end
+    
+    context "if status is not a reply" do
+      setup do
+        @status = Fabricate(:status, user_id: @user.id)  
+      end
+      
+      should "not create a reply_to id" do
+        assert_equal nil, @status.reply_to
+      end
+    end
+    
+    context "if status is a reply" do
+      context "and the user being replied to does not exist" do
+        setup do
+          @status = Fabricate(:status, user_id: @user.id, text: "@noexist you are great")
+        end
+        
+        should "not create a reply_to id" do
+          assert_equal nil, @status.reply_to
+        end
+      end
+      
+      context "and the user being replied to exists" do
+        setup do
+          @status = Fabricate(:status, user_id: @user.id, text: "@#{@user.screen_name} you are great")
+        end
+        
+        should "create a reply_to id with the users id" do
+          assert_equal @user.id, @status.reply_to
+        end
+      end
+    end
+  end
+  
   context "#reply_user" do
     setup do
       @user = Fabricate(:user)
-      @replying_user = Fabricate(:user)
-      @status = Fabricate(:status, user_id: @user.id)
     end
-
-    context "status is a reply" do
+    
+    context "if the status is a reply" do
       setup do
-        @reply_status = Fabricate(:status, text: "@#{@user.screen_name} nice one", user_id: @replying_user)
+        @status = Fabricate(:status, user_id: @user.id, text: "@#{@user.screen_name} you are great")
       end
-
-      should "return a user" do
-        assert_equal @user, @reply_status.reply_user
-      end
-
-      should "add the reply_to user_id to the record" do
-        assert_equal @user.id, @reply_status.reply_to
+      
+      should "return the user object" do
+        assert_equal @user, @status.reply_user
       end
     end
-
-    context "status is not a reply" do
+    
+    context "if the status is not a reply" do
+      setup do
+        @status = Fabricate(:status, user_id: @user.id)
+      end
+      
       should "return nil" do
         assert_equal nil, @status.reply_user
+      end
+    end
+  end
+  
+  context "#mentions" do
+    setup do
+      @user = Fabricate(:user)
+      @user2 = Fabricate(:user)
+      @user3 = Fabricate(:user)
+    end
+    
+    context "if there are no mentions in the status" do
+      setup do
+        @status = Fabricate(:status, user_id: @user)
+      end
+      should "not create any records in the user mentions table" do
+        assert_equal [], @status.mentioned_users
+      end
+    end
+    
+    context "if there are mentions in the status" do
+      setup do
+        @status = Fabricate(:status, user_id: @user, 
+                             text: "@#{@user.screen_name}, @#{@user2.screen_name}, 
+                             and @#{@user3.screen_name} rock!")
+      end
+      should "create a record for every mention in the mentions table" do
+        assert_equal [@user.screen_name, @user2.screen_name, @user3.screen_name], @status.mentioned_users
       end
     end
   end

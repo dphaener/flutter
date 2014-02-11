@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   EMAIL_REGEX = /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/
 
   validates :email, :format => EMAIL_REGEX, :uniqueness => true
-  validates :screen_name, :uniqueness => true, :length => 1..15, :format => /\A[^@]+\z/
+  validates :screen_name, :uniqueness => true, :length => 1..15, :format => /\A\w+\z/
   validates :full_name, :length => { :minimum => 2 }
   validates :password, :length => { :minimum => 8 }, 
     :format => { :with => /\d/, :message => "must have at least one number" }, 
@@ -20,6 +20,8 @@ class User < ActiveRecord::Base
   attr_accessor :password
 
   before_save :encrypt_password
+  
+  has_many :user_mentions
 
   def self.authenticate(email, password)
     return false unless user = self.find_by(:email => email)

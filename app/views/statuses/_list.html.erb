@@ -10,7 +10,10 @@
             <span class="screen-name">@<%= status.user.screen_name %></span>
           <% end %>
           <time><%= time_ago_in_words(status.created_at) %> ago</time>
-          <p class="status-text"><%= status.text %></p>
+          <p class="status-text"><%= make_links(status.text, status.mentioned_users).html_safe %></p>
+          <% if status.reply_user %>
+            <em>In reply to <%= link_to  "@#{status.reply_user.screen_name}", profile_path(status.reply_user.screen_name) %></em>
+          <% end %>
         </div>
       </li>
     <% end %>

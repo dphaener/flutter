@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :current_user, :logged_in?, :logout
+  helper_method :current_user, :logged_in?, :logout, :make_links
 
   def login_as(user)
     session[:user_id] = user.id
@@ -28,5 +28,12 @@ class ApplicationController < ActionController::Base
 
   def not_found!
     raise ActionController::RoutingError.new("Not Found")
+  end
+  
+  def make_links(status, users)
+    users.each do |user|
+      status.gsub!("@#{user}", "<a href=\"/#{user}\">@#{user}</a>")
+    end
+    return status
   end
 end

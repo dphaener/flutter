@@ -94,7 +94,7 @@ class UsersControllerTest < ActionController::TestCase
       context "and input is valid" do
         setup do
           @user = Fabricate(:user)
-          @new_info = Fabricate.attributes_for(:user, screen_name: "Scooby Doo")
+          @new_info = Fabricate.attributes_for(:user, screen_name: "ScoobyDoo")
           login_as(@user)
           put :update, user: @new_info
         end
@@ -109,7 +109,7 @@ class UsersControllerTest < ActionController::TestCase
 
         should "update the record" do
           @user.reload
-          assert_equal "Scooby Doo", @user.screen_name
+          assert_equal "ScoobyDoo", @user.screen_name
         end
       end
 
