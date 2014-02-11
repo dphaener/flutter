@@ -37,7 +37,7 @@ end
 group :test do
   gem 'shoulda'
   gem 'fabrication'
-  gem 'mocha'
+  gem 'mocha', require: false
 end
 
 gem 'gravatar_image_tag'
